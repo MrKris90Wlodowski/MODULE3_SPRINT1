@@ -1,0 +1,14 @@
+{
+  "name": "module3_sprint1",
+  "version": "1.0.0",
+  "description": "homework generics tasks from typescrip",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Krzysztof Włodowski",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
