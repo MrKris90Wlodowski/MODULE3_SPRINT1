@@ -27,9 +27,20 @@ interface Dict<T> {
   [k: string]: T;
 }
 
+function mapDict<T,U>(obj: Dict<T>,cb: (key: string,value: T) => U): Dict<U> {
+    const result: Dict<U> = {}
+    for (const key in obj) {
+        result[key] = cb(key,obj[key])
+    }
+    return result
+}
+
+// BLACK WEEK DISCOUNT
+console.log(mapDict(cars,(k,v) => ({brand: v.brand, color: v.color, price: v.price*0.5})))
+
 // Array.prototype.map, but for Dict
-function mapDict(...args: any[]): any {}
+// function mapDict(...args: any[]): any {}
 // Array.prototype.filter, but for Dict
-function filterDict(...args: any[]): any {}
+// function filterDict(...args: any[]): any {}
 // Array.prototype.reduce, but for Dict
-function reduceDict(...args: any[]): any {}
+// function reduceDict(...args: any[]): any {}
