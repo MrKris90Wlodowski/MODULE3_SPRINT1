@@ -28,8 +28,21 @@ function mapDict(obj, cb) {
     }
     return result;
 }
+function filterDict(obj, cb) {
+    const result = {};
+    for (const key in obj) {
+        const value = cb(obj[key], key);
+        if (value) {
+            result[key] = obj[key];
+        }
+    }
+    return result;
+}
+// COMMANDS
 // BLACK WEEK DISCOUNT
 console.log(mapDict(cars, (k, v) => ({ brand: v.brand, color: v.color, price: v.price * 0.5 })));
+//SEARCH IT NERDS STUDENTS
+console.log(filterDict(students, student => student.major === "Computer Science" || student.major === "Mathematics"));
 // Array.prototype.map, but for Dict
 // function mapDict(...args: any[]): any {}
 // Array.prototype.filter, but for Dict
