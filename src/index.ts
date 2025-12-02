@@ -35,10 +35,10 @@ function mapDict<T,U>(obj: Dict<T>,cb: (key: string,value: T) => U): Dict<U> {
     return result
 }
 
-function filterDict<T>(obj: Dict<T>,cb: (value: T,key: string) => boolean): Dict<T> {
+function filterDict<T>(obj: Dict<T>,cb: (key: string,value: T) => boolean): Dict<T> {
     const result: Dict<T> = {}
     for (const key in obj) {
-        const value = cb(obj[key],key)
+        const value = cb(key,obj[key])
         if (value) {
             result[key] = obj[key]
         }
@@ -46,12 +46,24 @@ function filterDict<T>(obj: Dict<T>,cb: (value: T,key: string) => boolean): Dict
     return result
 }
 
+function reduceDict<T,U>(obj: Dict<T>,cb: (acc: U,key: string,value: T) => U,initial: U): U {
+    let result: U = initial
+    for (const key in obj) {
+        result = cb(result,key,obj[key])
+    }
+    return result
+}
+
 // COMMANDS
 
-// BLACK WEEK DISCOUNT
+// BLACK WEEK DISCOUNT CARS
 console.log(mapDict(cars,(k,v) => ({brand: v.brand, color: v.color, price: v.price*0.5})))
 //SEARCH IT NERDS STUDENTS
-console.log(filterDict(students,student => student.major === "Computer Science" || student.major === "Mathematics"))
+console.log(filterDict(students,(k,v) => v.major === "Computer Science" || v.major === "Mathematics"))
+// SEARCH COMMON BRAND CARS
+console.log(filterDict(cars,(k,v) => v.brand === "Tesla"))
+// TOTAL VALUE ALL CARS
+console.log(reduceDict(cars,(acc,k,v) => acc + v.price,0))
 
 // Array.prototype.map, but for Dict
 // function mapDict(...args: any[]): any {}
